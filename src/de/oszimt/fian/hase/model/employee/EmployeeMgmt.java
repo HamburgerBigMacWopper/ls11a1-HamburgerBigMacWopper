@@ -64,7 +64,11 @@ public class EmployeeMgmt implements IntEmployeeMgmt {
 
 	@Override
 	public int getNextFreeId() {
-		return employeeList.size();
+		int i = 1;
+		while (employeeList.containsKey(i)) {
+			i++;
+		}
+		return i;
 	}
 
 	/**
