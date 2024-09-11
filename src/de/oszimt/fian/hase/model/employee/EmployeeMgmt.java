@@ -3,17 +3,16 @@ package de.oszimt.fian.hase.model.employee;
 import de.oszimt.fian.hase.interfaces.IntEmployeeMgmt;
 import de.oszimt.fian.hase.model.HaseGmbHManagement;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Collection;
 
 public class EmployeeMgmt implements IntEmployeeMgmt {
 
-	private final Employee [] employeeList;
+	private final HashMap<Integer, Employee> employeeList;
 	private final HaseGmbHManagement model;
 
 	public EmployeeMgmt(HaseGmbHManagement model) {
-		this.employeeList = new Employee[5];
+		this.employeeList = new HashMap<>();
 		this.model = model;
 	}
 
@@ -23,7 +22,8 @@ public class EmployeeMgmt implements IntEmployeeMgmt {
 
 	@Override
 	public boolean add(Employee employee) {
-		employeeList[employee.getId()] = employee;
+		employeeList.put(employee.getId(), employee);
+		//employeeList[employee.getId()] = employee;
 		return true;
 	}
 
@@ -34,23 +34,27 @@ public class EmployeeMgmt implements IntEmployeeMgmt {
 	 */
 	@Override
 	public Employee get(int id) {
-		return employeeList[id];
+		if (employeeList.get(id) == null) {
+			return null;
+		} else {
+			return employeeList.get(id);
+		}
 	}
 
 	@Override
 	public Collection<Employee> getAll() {
-		return new ArrayList<>(Arrays.asList(employeeList));
+		return employeeList.values();
 	}
 
 	@Override
 	public boolean update(Employee employee) {
-		employeeList[employee.getId()] = employee;
+		employeeList.put(employee.getId(), employee);
 		return true;
 	}
 
 	@Override
 	public boolean delete(int id) {
-		employeeList[id] = null;
+		employeeList.remove(id);
 		return true;
 	}
 
@@ -60,7 +64,7 @@ public class EmployeeMgmt implements IntEmployeeMgmt {
 
 	@Override
 	public int getNextFreeId() {
-		return employeeList.length;
+		return employeeList.size();
 	}
 
 	/**
@@ -68,7 +72,7 @@ public class EmployeeMgmt implements IntEmployeeMgmt {
 	 * @return size
 	 */
 	public int size(){
-		return employeeList.length;
+		return employeeList.size();
 	}
 
 	// 
@@ -93,5 +97,4 @@ public class EmployeeMgmt implements IntEmployeeMgmt {
 		add(anEmployee);
 
 	}
-
 }
