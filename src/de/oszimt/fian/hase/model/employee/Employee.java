@@ -53,4 +53,21 @@ public class Employee {
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
+
+	public String toString() {
+		String returnstring = "";
+		returnstring += "firstname: " + firstname;
+		returnstring += "\tlastname: " + lastname;
+		returnstring += "\tid: " + id;
+		returnstring += "\temail: " + email;
+		returnstring += "\ttelephone: " + telephone;
+		return returnstring;
+	}
+
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null || getClass() != obj.getClass()) return false;
+		Employee employee = (Employee) obj;
+		return id == employee.id;
+	}
 }
