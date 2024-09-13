@@ -41,9 +41,6 @@ public class Contract {
 		this.activityRecordList = activityRecordList;
 	}
 
-	public Contract() {
-	}
-
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
