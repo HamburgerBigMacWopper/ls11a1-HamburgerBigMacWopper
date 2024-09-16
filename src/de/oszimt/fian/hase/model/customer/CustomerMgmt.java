@@ -62,12 +62,14 @@ public class CustomerMgmt implements IntCustomerMgmt {
 
     @Override
     public boolean delete(int id) {
+        boolean deleted = false;
         for (int i = 0; i < customerList.size(); i++)
             if (customerList.get(i).getId() == id) {
+                deleted = true;
                 customerList.remove(i);
                 return true;
             }
-        getModel().getView().showError("Error: customer "+ id +" does not exist.");
+        getModel().getView().showError("Error: customer " + id + " does not exist.");
         return false;
     }
 

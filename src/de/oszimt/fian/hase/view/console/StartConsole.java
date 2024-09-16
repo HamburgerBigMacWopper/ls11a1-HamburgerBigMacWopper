@@ -2,9 +2,13 @@ package de.oszimt.fian.hase.view.console;
 
 import de.oszimt.fian.hase.model.HaseGmbHManagement;
 import de.oszimt.fian.hase.model.contract.Contract;
+import de.oszimt.fian.hase.model.contract.ContractMgmt;
 import de.oszimt.fian.hase.model.employee.Employee;
 import de.oszimt.fian.hase.view.IntView;
 import de.oszimt.fian.hase.model.customer.Customer;
+
+import java.time.DateTimeException;
+import java.time.LocalDate;
 
 /**
  * Show the main menu on a console in a loop
@@ -33,8 +37,9 @@ public class StartConsole implements IntView {
             ConsoleHelper.printMenu(3, "Kunden anzeigen");
             ConsoleHelper.printMenu(4, "Verträge anzeigen");
             ConsoleHelper.printMenu(5, "Remove Customer");
+            ConsoleHelper.printMenu(6, "Add Contract");
             ConsoleHelper.printMenu(-1, "Beenden");
-            int i = ConsoleHelper.inputInt("Ihre Wahl", -1, 4);
+            int i = ConsoleHelper.inputInt("Ihre Wahl", -1, 6);
             switch (i) {
                 case -1 -> {
                     return;
@@ -45,6 +50,7 @@ public class StartConsole implements IntView {
                 case 3 -> showCustomer();
                 case 4 -> showContract();
                 case 5 -> removeCustomer();
+                case 6 -> addContract();
             }
         }
     }
@@ -115,19 +121,111 @@ public class StartConsole implements IntView {
     }
 
     public void addContract() {
+        ConsoleHelper.header("Contract einfach adden");
+        System.out.println("Heute = 0");
+        System.out.println("Custom date = 1");
+        System.out.println("Main menu = -1");
+        int datum_check = ConsoleHelper.inputInt("Heute oder", -1, 1);
+        if (datum_check == -1) {
+            mainmenu();
+        }
+        LocalDate creationDate = LocalDate.now();
+        if (datum_check != 0) {
+            int max_day_month = 31;
+            int year = ConsoleHelper.inputInt("Jahr" );
+            if (year == -1) {
+                mainmenu();
+            }
+            int month = ConsoleHelper.inputInt("Monat", -1, 12);
+            if (month == -1) {
+                mainmenu();
+            }
+            boolean worked = false;
+            while (worked == false) {
+                try {
+                    LocalDate.of(year, month, max_day_month);
+                    worked = true;
+                } catch (DateTimeException e) {
+                    max_day_month--;
+                }
+            }
+            int day = ConsoleHelper.inputInt("Tag", -1, max_day_month);
+            if (day == -1) {
+                mainmenu();
+            }
+            creationDate = LocalDate.of(year, month, day);
+        }
+        //System.out.println(creationDate);
+        ConsoleHelper.header("Kunden auswählen");
+        int highestid_customer = 0;
 
+        for (Customer customer : model.getCustomer().getAll()) {
+            int customerid = customer.getId();
+            if (customerid > highestid_customer) {
+                highestid_customer = customerid;
+            }
+
+            ConsoleHelper.printMenu(customerid, customer.toString());
+        }
+        System.out.println("-1 = main menu");
+        int customerId = ConsoleHelper.inputInt("ID des Kunden", -1, highestid_customer);
+        if (customerId == -1) {
+            mainmenu();
+        }
+        Customer customer = model.getCustomer().get(customerId);
+        ConsoleHelper.header("Projektowner auswählen");
+        int highestid_projektowner = 0;
+
+        for (Employee employee : model.getEmployee().getAll()) {
+            int employeeid = employee.getId();
+            if (employeeid > highestid_projektowner) {
+                highestid_projektowner = employeeid;
+            }
+
+            ConsoleHelper.printMenu(employeeid, employee.toString());
+        }
+        System.out.println("-1 = main menu");
+        int projektowner_id = ConsoleHelper.inputInt("ID des Kunden", -1, highestid_projektowner);
+        if (customerId == -1) {
+            mainmenu();
+        }
+        Employee projektowner = model.getEmployee().get(projektowner_id);
+        ConsoleHelper.header("Contracttype definieren");
+        String contractType = "";
+        while (contractType == "") {
+            contractType = ConsoleHelper.input("Contracttype");
+            System.out.println();
+        }
+        ConsoleHelper.header("Beschreibung definieren");
+        String description = ConsoleHelper.input("Description");
+        Contract contract = new Contract(model.getContract().getNextFreeId(), creationDate, customer, projektowner, contractType, description);
+        model.getContract().add(contract);
     }
 
     public void removeCustomer() {
         ConsoleHelper.header("Kunden einfach entfernen");
+        int highestid = 0;
 
         for (Customer customer : model.getCustomer().getAll()) {
-            ConsoleHelper.printMenu(customer.getId(), customer.toString());
+            int customerid = customer.getId();
+            if (customerid > highestid) {
+                highestid = customerid;
+            }
+
+            ConsoleHelper.printMenu(customerid, customer.toString());
         }
-        int customerId = ConsoleHelper.inputInt("ID des zum sterbenden Kunden", 0, model.getCustomer().getNextFreeId() - 1);
+        System.out.println("-1 = zurück");
+        int customerId = ConsoleHelper.inputInt("ID des zum sterbenden Kunden", -1, highestid);
+        if (customerId == -1) {
+            mainmenu();
+        }
+        for (Contract c : model.getContract().getAll()) {
+            if (customerId == c.getCustomer().getId()) {
+                c.setCustomer(null);
+            }
+        }
 
         ConsoleHelper.valid("Gelöscht: " + model.getCustomer().get(customerId), model.getCustomer().delete(customerId));
-        model.getContract().delete(customerId);
 
         mainmenu();
     }
