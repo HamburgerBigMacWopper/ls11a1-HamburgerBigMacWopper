@@ -8,7 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -45,7 +44,7 @@ public class TestA34CustomerContractMgmt {
 
     @Test
     void testContract() {
-        Contract contract = new Contract(0, LocalDate.now(), address, null, null, "contractType", "desc", new ArrayList<>());
+        Contract contract = new Contract(0, LocalDate.now(), null, null, "contractType", "desc");
 
         assertEquals("contractType",contract.getContractType(), "contractType im Contract stimmt nicht.");
         assertEquals(0,contract.getActivityRecordList().size(), "getActivityRecordList im Contract stimmt nicht.");
@@ -56,7 +55,7 @@ public class TestA34CustomerContractMgmt {
         Employee employee = new Employee(0, "firstname", "lastname", "email", "telephone");
         Customer customer = new Customer(0, "first", "last", LocalDate.now(), "email", address);
 
-        Contract contract = new Contract(0, LocalDate.now(), address, customer, employee, "contractType", "desc", new ArrayList<>());
+        Contract contract = new Contract(0, LocalDate.now(), customer, employee, "contractType", "desc");
 
         assertEquals("firstname",contract.getProjectOwner().getFirstname(), "firstname im Employee im Contract stimmt nicht.");
         assertEquals("last",contract.getCustomer().getLastname(), "lastname im Customer im Contract stimmt nicht.");
@@ -75,7 +74,7 @@ public class TestA34CustomerContractMgmt {
 
     @Test
     void testContractMgmt() {
-        Contract contract = new Contract(0, LocalDate.now(), address, null, null, "contractType", "desc", new ArrayList<>());
+        Contract contract = new Contract(0, LocalDate.now(), null, null, "contractType", "desc");
 
         ContractMgmt contractMgmt = new ContractMgmt(null);
         int size = contractMgmt.getAll().size();

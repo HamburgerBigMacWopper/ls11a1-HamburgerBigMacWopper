@@ -2,7 +2,6 @@ package de.oszimt.fian.hase.model.contract;
 
 import de.oszimt.fian.hase.interfaces.IntContractMgmt;
 import de.oszimt.fian.hase.model.ActivityRecord;
-import de.oszimt.fian.hase.model.Address;
 import de.oszimt.fian.hase.model.HaseGmbHManagement;
 
 import java.time.LocalDate;
@@ -133,25 +132,5 @@ public class ContractMgmt implements IntContractMgmt {
 
         // initialisation of contracts
 
-        Contract contract;
-        contract = new Contract(getNextFreeId(), LocalDate.of(2022, 4, 10),
-                new Address("Theodor-Storm-Straße", "23", "73529", "Berlin"), getModel().getCustomer().get(0),
-                getModel().getEmployee().get(0), "Wartung", "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.", arList01);
-        add(contract);
-
-        contract = new Contract(getNextFreeId(), LocalDate.of(2022, 2, 10),
-                new Address("Theodor-Storm-Straße", "23", "73529", "Berlin"), getModel().getCustomer().get(0),
-                getModel().getEmployee().get(0), "Wartung", "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.", arList02);
-        add(contract);
-
-        Contract contract1 = new Contract(getNextFreeId(), LocalDate.of(2022, 4, 10),
-                new Address("Zornige Ameise", "2", "45134", "Essen"), getModel().getCustomer().get(0),
-                getModel().getEmployee().get(0), "Wartung", "Yar Pirate Ipsum", arList01);
-        add(contract1);
-
-        Contract contract2 = new Contract(getNextFreeId(), LocalDate.of(2022, 5, 22),
-                new Address("Auf der Kegelbahn", "7", "53925", "Kall"), getModel().getCustomer().get(4),
-                getModel().getEmployee().get(0), "Reparatur", "Cupcake ipsum dolor sit amet", arList02);
-        add(contract2);
     }
 }

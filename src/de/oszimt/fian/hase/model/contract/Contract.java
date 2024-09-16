@@ -1,7 +1,6 @@
 package de.oszimt.fian.hase.model.contract;
 
 import de.oszimt.fian.hase.model.ActivityRecord;
-import de.oszimt.fian.hase.model.Address;
 import de.oszimt.fian.hase.model.customer.Customer;
 import de.oszimt.fian.hase.model.employee.Employee;
 import java.time.LocalDate;
@@ -17,23 +16,20 @@ public class Contract {
 	private String contractType;
 	private char State;
 	private String description;
-	private Address projectLocations;
-	private ArrayList<ActivityRecord> activityRecordList;
+	private ArrayList<ActivityRecord> activityRecordList = new ArrayList<>();
 
-	public Contract(int id, LocalDate creationDate, Address projectLocations, Customer customer, Employee projectOwner, String contractType, String description) {
+	public Contract(int id, LocalDate creationDate, Customer customer, Employee projectOwner, String contractType, String description) {
 		this.id = id;
 		this.creationDate = creationDate;
-		this.projectLocations = projectLocations;
 		this.customer = customer;
 		this.projectOwner = projectOwner;
 		this.contractType = contractType;
 		this.description = description;
 	}
 
-	public Contract(int id, LocalDate creationDate, Address projectLocations, Customer customer, Employee projectOwner, String contractType, String description, ArrayList<ActivityRecord> activityRecordList) {
+	public Contract(int id, LocalDate creationDate, Customer customer, Employee projectOwner, String contractType, String description, ArrayList<ActivityRecord> activityRecordList) {
 		this.id = id;
 		this.creationDate = creationDate;
-		this.projectLocations = projectLocations;
 		this.customer = customer;
 		this.projectOwner = projectOwner;
 		this.contractType = contractType;
@@ -46,7 +42,7 @@ public class Contract {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Contract contract = (Contract) o;
-		return id == contract.id && State == contract.State && Objects.equals(creationDate, contract.creationDate) && Objects.equals(customer, contract.customer) && Objects.equals(projectOwner, contract.projectOwner) && Objects.equals(contractType, contract.contractType) && Objects.equals(description, contract.description) && Objects.equals(projectLocations, contract.projectLocations) && Objects.deepEquals(activityRecordList, contract.activityRecordList);
+		return id == contract.id && State == contract.State && Objects.equals(creationDate, contract.creationDate) && Objects.equals(customer, contract.customer) && Objects.equals(projectOwner, contract.projectOwner) && Objects.equals(contractType, contract.contractType) && Objects.equals(description, contract.description) && Objects.deepEquals(activityRecordList, contract.activityRecordList);
 	}
 
 	public int getId() {
@@ -105,13 +101,6 @@ public class Contract {
 		this.description = description;
 	}
 
-	public Address getProjectLocations() {
-		return projectLocations;
-	}
-
-	public void setProjectLocations(Address projectLocations) {
-		this.projectLocations = projectLocations;
-	}
 
 	public ArrayList<ActivityRecord> getActivityRecordList() {
 		return activityRecordList;
@@ -131,7 +120,6 @@ public class Contract {
 				", contractType='" + contractType + '\'' +
 				", State=" + State +
 				", description='" + description + '\'' +
-				", projectLocations=" + projectLocations +
 				", activityRecordList=" + activityRecordList +
 				'}';
 	}
