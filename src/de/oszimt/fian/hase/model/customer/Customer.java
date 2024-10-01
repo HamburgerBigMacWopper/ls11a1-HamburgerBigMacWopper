@@ -26,8 +26,15 @@ public class Customer extends Person {
 
 	@Override
 	public String toString() {
-		return "Customer [customerID=" + super.getId() + ", firstname=" + super.getFirstname() + ", lastname=" + super.getLastname()
-				+ ", birthday=" + birthday + ", email=" + super.getEmail() + ", address=" + address + "]";
+		String returnstring = "";
+		returnstring += "Customer [customerID=: " + super.getId();
+		returnstring += ", firstname=" + super.getFirstname();
+		returnstring += ", lastname= " + super.getLastname();
+		returnstring += ", birthday=" + birthday;
+		returnstring += ", email=" + super.getEmail();
+		returnstring += ", address=" + address;
+		returnstring += "]";
+		return returnstring;
 	}
 
 	public Address getAddress() {

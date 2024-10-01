@@ -51,4 +51,13 @@ public abstract class Person {
         }
         return false;
     }
+
+    public String toString() {
+        String returnstring = "";
+        returnstring += "firstname: " + firstname;
+        returnstring += "\tlastname: " + lastname;
+        returnstring += "\tid: " + id;
+        returnstring += "\temail: " + email;
+        return returnstring;
+    }
 }
