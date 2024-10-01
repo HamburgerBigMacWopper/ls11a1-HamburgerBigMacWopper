@@ -46,8 +46,7 @@ public abstract class Person {
 
     @Override
     public boolean equals(Object o) {
-        if ( o instanceof Person) {
-            Person tempPerson = (Person) o;
+        if (o instanceof Person tempPerson) {
             return this.id == tempPerson.getId();
         }
         return false;
