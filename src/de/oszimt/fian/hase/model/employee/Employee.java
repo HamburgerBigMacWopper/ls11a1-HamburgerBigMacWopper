@@ -20,7 +20,7 @@ public class Employee extends Person {
 
 	@Override
 	public boolean equals(Object o) {
-		if (o instanceof Person tempPerson) {
+		if (o instanceof Employee tempPerson) {
 			return this.id == tempPerson.getId();
 		}
 		return false;

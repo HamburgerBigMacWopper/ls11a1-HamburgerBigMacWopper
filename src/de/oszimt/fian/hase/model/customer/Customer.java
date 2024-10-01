@@ -26,7 +26,7 @@ public class Customer extends Person {
 
 	@Override
 	public boolean equals(Object o) {
-		if (o instanceof Person tempPerson) {
+		if (o instanceof Customer tempPerson) {
 			return this.id == tempPerson.getId();
 		}
 		return false;
