@@ -25,6 +25,14 @@ public class Customer extends Person {
 	}
 
 	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Person tempPerson) {
+			return this.id == tempPerson.getId();
+		}
+		return false;
+	}
+
+	@Override
 	public String toString() {
 		String returnstring = "";
 		returnstring += "Customer [customerID=: " + super.getId();

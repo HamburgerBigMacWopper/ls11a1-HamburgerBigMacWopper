@@ -45,19 +45,7 @@ public abstract class Person {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o instanceof Person tempPerson) {
-            return this.id == tempPerson.getId();
-        }
-        return false;
-    }
+    public abstract boolean equals(Object o);
 
-    public String toString() {
-        String returnstring = "";
-        returnstring += "firstname: " + firstname;
-        returnstring += "\tlastname: " + lastname;
-        returnstring += "\tid: " + id;
-        returnstring += "\temail: " + email;
-        return returnstring;
-    }
+    public abstract String toString();
 }

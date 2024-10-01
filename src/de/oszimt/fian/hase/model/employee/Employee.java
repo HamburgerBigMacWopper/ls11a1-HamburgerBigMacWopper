@@ -18,6 +18,14 @@ public class Employee extends Person {
 		this.telephone = telephone;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Person tempPerson) {
+			return this.id == tempPerson.getId();
+		}
+		return false;
+	}
+
 	public String toString() {
 		String returnstring = "";
 		returnstring += "firstname: " + super.getFirstname();
