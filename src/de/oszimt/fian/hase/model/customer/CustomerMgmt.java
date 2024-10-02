@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public class CustomerMgmt implements IntCustomerMgmt {
 
-    private final ArrayList<Customer> customerList;
-    private final HaseGmbHManagement model;
+    private ArrayList<Customer> customerList;
+    private HaseGmbHManagement model;
 
     public CustomerMgmt(HaseGmbHManagement model) {
         this.customerList = new ArrayList<>();
@@ -62,14 +62,12 @@ public class CustomerMgmt implements IntCustomerMgmt {
 
     @Override
     public boolean delete(int id) {
-        boolean deleted = false;
         for (int i = 0; i < customerList.size(); i++)
             if (customerList.get(i).getId() == id) {
-                deleted = true;
                 customerList.remove(i);
                 return true;
             }
-        getModel().getView().showError("Error: customer " + id + " does not exist.");
+        getModel().getView().showError("Error: customer "+ id +" does not exist.");
         return false;
     }
 
@@ -85,38 +83,40 @@ public class CustomerMgmt implements IntCustomerMgmt {
     public void loadData() {
 
         Customer customer;
-        customer = new Customer(getNextFreeId(), "Karin", "Nielsen", LocalDate.of(1970, 3, 21), "nielsen@acidlsdshop.com",
-                new Address("Zornige Ameise", "2", "45134", "Essen"));
+        customer = new Consumer(getNextFreeId(), "Karin", "Nielsen", LocalDate.of(1970, 3, 21), "nielsen@acidlsdshop.com",
+                new Address("Theodor-Storm-Straße", "23", "73529", "Berlin"));
         add(customer);
 
-        customer = new Customer(getNextFreeId(), "Timon", "Klier", LocalDate.of(1968, 8, 11), "klier68@gmail.com",
-                new Address("Spar dir die Müh","4", "38685", "Langelsheim"));
+        customer = new Consumer(getNextFreeId(), "Timon", "Klier", LocalDate.of(1968, 8, 11), "klier68@gmail.com",
+                new Address("Lübzer Straße", "6", "12529", "Berlin"));
         add(customer);
 
-        customer = new Customer(getNextFreeId(), "Egon", "Diederichsen", LocalDate.of(1975, 7, 4), "egondiederichsen@gmail.com",
+        customer = new Consumer(getNextFreeId(), "Egon", "Diederichsen", LocalDate.of(1975, 7, 4), "egondiederichsen@gmail.com",
                 new Address("Loretostraße", "29", "10119", "Berlin"));
         add(customer);
 
-        customer = new Customer(getNextFreeId(), "Thore", "Rogowski", LocalDate.of(1963, 5, 14), "rogowski@ebarg.net",
-                new Address("Hölle","6", "25746", "Heide"));
+        customer = new Consumer(getNextFreeId(), "Thore", "Rogowski", LocalDate.of(1963, 5, 14), "rogowski@ebarg.net",
+                new Address("Sandäckerstraße", "25", "14537", "Berlin"));
         add(customer);
 
-        customer = new Customer(getNextFreeId(), "Jan-Hendrik", "Kohnen", LocalDate.of(1985, 9, 2), "kohnen@gmx.net",
-                new Address("Auf der Kegelbahn", "7", "53925", "Kall"));
+        customer = new Consumer(getNextFreeId(), "Jan-Hendrik", "Kohnen", LocalDate.of(1985, 9, 2), "kohnen@gmx.net",
+                new Address("Pfarrer-Baumann-Straße", "9", "10577", "Berlin"));
         add(customer);
 
-        customer = new Customer(getNextFreeId(), "Nils", "Mantel", LocalDate.of(1955, 6, 19), "mantel@btcmail.org",
-                new Address("Kleines Berg","5a", "16227", "Eberswalde"));
+        customer = new Consumer(getNextFreeId(), "Nils", "Mantel", LocalDate.of(1955, 6, 19), "mantel@btcmail.org",
+                new Address("Kattenescher Weg", "25", "13657", "Berlin"));
         add(customer);
 
-        customer = new Customer(getNextFreeId(), "Kai", "Wiese", LocalDate.of(1973, 4, 26), "wiese.kai@webmail.de",
-                new Address("Unter Fettenhennen","11", "50667", "Köln"));
+        customer = new Consumer(getNextFreeId(), "Kai", "Wiese", LocalDate.of(1973, 4, 26), "wiese.kai@webmail.de",
+                new Address("Dr.-Heffner-Straße", "33", "14112", "Berlin"));
         add(customer);
 
-        customer = new Customer(getNextFreeId(), "Ali", "Gator", LocalDate.of(1972, 1, 20), "ali.gator@web.de",
-                new Address("L7,","8", "68165", "Mannheim"));
+        //add companies
+        customer = new Company(4, "Fliesenzentrum Peter Platten", "Peter", "Platten", "platten@fliesenzentrumplatten.de", new Address("Geil", "5","24960", "Munkbrarup"));
         add(customer);
 
+        customer = new Company(4, "Rost & Söhne", "Lisa ", "Bonn", "bonn@rostundsoehne.de", new Address("Spar dir die Müh", "4","38685", "Langelsheim"));
+        add(customer);
 
 
     }

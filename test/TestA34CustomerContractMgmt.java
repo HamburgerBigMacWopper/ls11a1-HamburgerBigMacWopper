@@ -1,6 +1,7 @@
 import de.oszimt.fian.hase.model.Address;
 import de.oszimt.fian.hase.model.contract.Contract;
 import de.oszimt.fian.hase.model.contract.ContractMgmt;
+import de.oszimt.fian.hase.model.customer.Consumer;
 import de.oszimt.fian.hase.model.customer.Customer;
 import de.oszimt.fian.hase.model.customer.CustomerMgmt;
 import de.oszimt.fian.hase.model.employee.Employee;
@@ -28,7 +29,8 @@ public class TestA34CustomerContractMgmt {
 
     @Test
     void testCustomer() {
-        Customer customer = new Customer(0, "first", "last", LocalDate.now(), "email", address);
+        Customer customer = new Consumer(0, "first", "last", LocalDate.now(), "email", address) {
+        };
 
         assertEquals("first",customer.getFirstname(), "Vorname im Customer stimmt nicht.");
         assertEquals("email",customer.getEmail(), "E-Mail im Customer stimmt nicht.");
@@ -36,7 +38,7 @@ public class TestA34CustomerContractMgmt {
 
     @Test
     void testCustomerAssociationAddress() {
-        Customer customer = new Customer(0, "first", "last", LocalDate.now(), "email", address);
+        Customer customer = new Consumer(0, "first", "last", LocalDate.now(), "email", address);
 
         assertEquals("street",customer.getAddress().getStreet(), "Straße in Adresse des Customer stimmt nicht.");
         assertEquals("city",customer.getAddress().getCity(), "City in Adresse des Customer stimmt nicht.");
@@ -53,7 +55,7 @@ public class TestA34CustomerContractMgmt {
     @Test
     void testContractAssociationCustomerEmployee() {
         Employee employee = new Employee(0, "firstname", "lastname", "email", "telephone");
-        Customer customer = new Customer(0, "first", "last", LocalDate.now(), "email", address);
+        Customer customer = new Consumer(0, "first", "last", LocalDate.now(), "email", address);
 
         Contract contract = new Contract(0, LocalDate.now(), customer, employee, "contractType", "desc");
 
@@ -63,7 +65,7 @@ public class TestA34CustomerContractMgmt {
 
     @Test
     void testCustomerMgmt() {
-        Customer customer = new Customer(0, "first", "last", LocalDate.now(), "email", address);
+        Customer customer = new Consumer(0, "first", "last", LocalDate.now(), "email", address);
 
         CustomerMgmt customerMgmt = new CustomerMgmt(null);
         int size = customerMgmt.getAll().size();

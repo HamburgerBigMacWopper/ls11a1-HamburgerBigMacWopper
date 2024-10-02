@@ -5,45 +5,40 @@ import de.oszimt.fian.hase.model.base.Person;
 
 import java.time.LocalDate;
 
-public class Customer extends Person {
-	private LocalDate birthday;
-	private Address address;
+public abstract class Customer extends Person {
+	protected Address address;
+	protected char status;
+	protected char paymentType;
 	
-	public Customer(int id, String firstname, String lastname, LocalDate birthday, String email,
+	public Customer(int id, String firstname, String lastname, String email,
 			Address address) {
 		super(id, firstname, lastname, email);
-		this.birthday = birthday;
 		this.address = address;
+		this.status = 'G';
+		this.paymentType = 'V';
 	}
 
-	public LocalDate getBirthday() {
-		return birthday;
+	public char getStatus() {
+		return status;
 	}
 
-	public void setBirthday(LocalDate birthday) {
-		this.birthday = birthday;
+	public void setStatus(char status) {
+		this.status = status;
+	}
+
+	public char getPaymentType() {
+		return paymentType;
+	}
+
+	public void setPaymentType(char paymentType) {
+		this.paymentType = paymentType;
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		if (o instanceof Customer tempPerson) {
-			return this.id == tempPerson.getId();
-		}
-		return false;
-	}
+	public abstract boolean equals(Object o);
 
 	@Override
-	public String toString() {
-		String returnstring = "";
-		returnstring += "Customer [customerID=: " + super.getId();
-		returnstring += ", firstname=" + super.getFirstname();
-		returnstring += ", lastname= " + super.getLastname();
-		returnstring += ", birthday=" + birthday;
-		returnstring += ", email=" + super.getEmail();
-		returnstring += ", address=" + address;
-		returnstring += "]";
-		return returnstring;
-	}
+	public abstract String toString();
 
 	public Address getAddress() {
 		return address;
@@ -53,5 +48,8 @@ public class Customer extends Person {
 		this.address = address;
 	}
 
+	public abstract String getAddressLabel();
+
+	public abstract boolean isAutomaticOrderVolume(int orderVolume);
 
 }
